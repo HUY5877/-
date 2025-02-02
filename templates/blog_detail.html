@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}
+    详情
+{% endblock %}
+{% block head %}
+    <script src={% static 'js/jquery.js' %}></script>
+    <script src={% static 'js/pubcomment.js' %}></script>
+
+{% endblock %}
+{% block main %}
+    <h1 style="color: #eeffb4">{{ blog.title }}</h1>
+    <hr>
+    <form>
+        <div class="mt-2 form-control" style="color: #0dcaf0">
+        <img src="{{ blog.author.profile.avatar.url }}" class="rounded-circle" style="height: 40px;
+                            width: 40px">
+        <span class="ms-2">{{ blog.author.name }}</span>
+        <span class="ms-2">于</span>
+        <span class="ms-2">{{ blog.pub_time|date:"Y年m月d日 H:i" }}发布</span>
+        <hr>
+        <div class="py-2">
+            {{ blog.content|safe }}
+        </div>
+        <hr>
+        <h3>评论数量({{ blog.comments.all|length }})</h3>
+        <form action="" , method="post">
+            {% csrf_token %}
+            <input type="hidden" name="blog_id" , value="{{ blog.id }}">
+            <div class="mt-2">
+                <input type="text" class="form-control" placeholder="请输入评论" name="content">
+            </div>
+            <div class="text-end">
+                <button type="button" class="btn btn-outline-info mt-2" id="pubcomment">提交评论</button>
+            </div>
+
+        </form>
+    </div>
+    {% for comment in blog.comments.all %}
+        <div class="mt-2">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between">
+                        <div class="user-info">
+                            <img src="{{ comment.author.profile.avatar.url }}" class="rounded-circle" style="height: 40px;
+                            width: 40px">
+                            <span class="ms-2">{{ comment.author }}</span>
+                        </div>
+                        <div class="crate-time" style="line-height: 40px">
+                            {{ comment.pub_time }}
+                        </div>
+                    </div>
+                    <div class="mt-2">{{ comment.content|safe }}</div>
+                </li>
+
+            </ul>
+        </div>
+    {% endfor %}
+    </form>
+
+
+
+{% endblock %}

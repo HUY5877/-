@@ -1,0 +1,77 @@
+{#{% load static %}#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <style>
+        body {
+            background-image: url({% static '星星.jpg' %});
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            opacity: 0.8;
+        }
+
+
+    </style>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+
+    {% block head %} {% endblock %}
+</head>
+
+
+<body>
+<header class="p-3 text-bg-secondary mb-3">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <img src="{% static '主页logo.png' %}" style="margin-left: 0;height: 150px">
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/" class="nav-link px-2 text-white">首页</a></li>
+                <li><a href="/pub" class="nav-link px-2 text-white">发布博客</a></li>
+
+            </ul>
+
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'blog:search_blog' %}" method="get">
+                <input type="search" name="inf" class="form-control form-control-dark text-bg-white" placeholder="搜索..."
+                       aria-label="Search">
+            </form>
+            {% if user.is_authenticated %}
+                <div class="dropdown text-end">
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <img src="{{ user.profile.avatar.url }}" alt="mdo" width="32" height="32" class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small" style="">
+
+                        <li><a class="dropdown-item" href="/author/out">退出</a></li>
+                        <li><a class="dropdown-item" href="/author/profile">查看用户信息</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <div class="text-end">
+                    <a href="/author/login" type="button" class="btn btn-outline-light me-2">登录</a>
+                    <a href="/author/register" type="button" class="btn btn-primary">注册</a>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</header>
+<main class="container p-3 rounded">
+    {% block main %} {% endblock %}
+    <script>hljs.highlightAll();</script>
+</main>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}
+    用户详情
+{% endblock %}
+{% block main %}
+    <div class="form-control">
+        <h1>用户资料</h1>
+        <p>用户名: {{ user.username }}</p>
+        <img src="{{ user.profile.avatar.url }}" alt="头像" width="100">
+        <a href="{% url 'author:upload_avatar' %}">更改头像</a>
+    </div>
+{% endblock %}

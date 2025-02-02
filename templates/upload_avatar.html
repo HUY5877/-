@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    上传头像
+{% endblock %}
+{% block main %}
+
+    <h1 class="form-control">上传头像</h1>
+    <form method="post" enctype="multipart/form-data" class="form-control">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="form-control">上传</button>
+    </form>
+    <a href="{% url 'author:profile' %}" class="form-control">返回资料页</a>
+{% endblock %}
+

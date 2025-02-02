@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+    登录
+{% endblock %}
+{% block main %}
+
+    <div style="max-width: 400px;" class="m-auto">
+        <h1 style="color: #0dcaf0">登录</h1>
+        <form action="" method="post" style="color: #0dcaf0">
+            {% csrf_token %}
+            <div class="mt-3">
+                <label>邮箱</label>
+                <input type="email" name="email" class="form-control" placeholder="邮箱">
+            </div>
+            <div class="mt-3">
+                <label>密码</label>
+                <input type="password" name="password" class="form-control" placeholder="密码">
+            </div>
+            <div class="form-check mt-2">
+                <input class="form-check-input" name="remember" value="1" type="checkbox" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault" style="color: white">
+                    记住我
+                </label>
+{#                {% if form %}#}
+{#                    #}
+{#                {% endif %}#}
+                <div class="mt-3" >
+                    <button class="btn btn-outline-info w-100">立即登录</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

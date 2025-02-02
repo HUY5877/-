@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block head %}
+    <script src="https://unpkg.com/@wangeditor/editor@latest/dist/index.js"></script>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/pub_blog.js' %}"></script>
+    <link
+            href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css"
+            rel="stylesheet"
+    />
+    <style>
+        #editor—wrapper {
+            border: 1px solid #ccc;
+            z-index: 100; /* 按需定义 */
+        }
+
+        #toolbar-container {
+            border-bottom: 1px solid #ccc;
+        }
+
+        #editor-container {
+            height: 500px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    发布博客
+{% endblock %}
+{% block main %}
+    <h1 style="color: #0dcaf0">发布博客</h1>
+    <div class="mt-3" style="color: #0dcaf0">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="mt-3">
+                <label class="form-label">标题</label>
+                <input type="text" name="title" class="form-control">
+            </div>
+            <div class="mt-3">
+                <label class="form-label">分类</label>
+                <select name="kind" class="form-select">
+                    {% for i in kind %}
+                        <option value="{{ i.id }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mt-3">
+                <label class="form-control">内容</label>
+            </div>
+        </form>
+        <div id="editor—wrapper" class="mt-2">
+            <div id="toolbar-container"><!-- 工具栏 --></div>
+            <div id="editor-container"><!-- 编辑器 --></div>
+        </div>
+    </div>
+    <div class="mt-3 text-end">
+        <button type="button" class="btn btn-outline-info" id="pub">立即发布</button>
+    </div>
+{% endblock %}
