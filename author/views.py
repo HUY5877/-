@@ -1,5 +1,6 @@
 import random
 import string
+from django.contrib import messages
 from .models import *
 from django.shortcuts import render,redirect,reverse
 from django.http.response import JsonResponse
@@ -27,9 +28,12 @@ def login1(request):
                     request.session.set_expiry(0)
                 return redirect('/')
             else :
-                # form.add_error('error', '账号或密码错误')
+                form.add_error(None, '账号或密码错误')
                 # print(reverse('author:login'))
-                return redirect(reverse('author:login'))
+                return render(request , 'login.html' , context = {'form':form})
+        else :
+            form.add_error(None , "账号或密码错误")
+            return render(request , 'login.html' , context = {'form':form})
 @require_http_methods(['GET', 'POST'])
 def register(request):
     if request.method == 'GET':
